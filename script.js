@@ -8,7 +8,7 @@ document.addEventListener('mousemove', (e) => {
 });
 
 // Hover Effects for Links
-const navLinks = document.querySelectorAll('.nav-links li a');
+const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
 navLinks.forEach(link => {
   link.addEventListener('mouseenter', () => {
     cursor.style.transform = 'scale(1.5)';
@@ -44,7 +44,7 @@ anchorLinks.forEach(anchor => {
   });
 });
 
-// Theme Toggle
+// Theme Toggle (dark mode/light mode)
 themeToggle.addEventListener('click', () => {
   document.body.classList.toggle('dark-mode');
   document.body.classList.toggle('light-mode');
@@ -55,7 +55,7 @@ themeToggle.addEventListener('click', () => {
   }
 });
 
-// Set Default Theme
+// Set Default Theme based on System Preferences
 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
   document.body.classList.add('dark-mode');
   themeToggle.textContent = 'Switch to Light Mode';

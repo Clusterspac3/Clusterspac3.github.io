@@ -1,0 +1,163 @@
+const inputArea = document.getElementById('input-area');
+const timerDisplay = document.getElementById('timer');
+const wpmDisplay = document.getElementById('wpm');
+const startButton = document.getElementById('start-button');
+const promptTextElement = document.getElementById('prompt-text');
+const toggleButton = document.getElementById('toggle-mode');
+
+let timer = 0;
+let interval;
+let isPlaying = false;
+
+const randomWords = [
+    'apple', 'banana', 'grape', 'orange', 'lemon', 'kiwi', 'pear', 'peach', 'mango', 'berry',
+    'quick', 'brown', 'lazy', 'fox', 'jumps', 'dog', 'cat', 'elephant', 'tiger', 'lion',
+    'avocado', 'parrot', 'wizard', 'oyster', 'zebra', 'jazz', 'matrix', 'vortex', 'sphinx', 'quartz',
+    'lynx', 'cobra', 'hyena', 'python', 'ninja', 'boxer', 'falcon', 'gecko', 'iguana', 'jackal',
+    'koala', 'lemur', 'moose', 'narwhal', 'octopus', 'panda', 'quokka', 'raccoon', 'salmon', 'turtle',
+    'unicorn', 'viper', 'walrus', 'xylophone', 'yak', 'zebra', 'beetle', 'cricket', 'dragonfly', 'eagle',
+    'flamingo', 'gorilla', 'honey', 'inkwell', 'jigsaw', 'kettle', 'labyrinth', 'magnet', 'nebula', 'oasis',
+    'pebble', 'quiver', 'riddle', 'scissors', 'trophy', 'umbrella', 'violin', 'whisk', 'xenon', 'yodel',
+    'zeppelin', 'bucket', 'candlestick', 'daffodil', 'echo', 'furnace', 'galaxy', 'harpoon', 'isotope', 'jigsaw',
+    'kettle', 'lightning', 'marble', 'notebook', 'oxygen', 'plasma', 'quilt', 'rocket', 'shadow', 'trampoline',
+    'utensil', 'vacuum', 'whisper', 'xerox', 'yarn', 'zeppelin', 'bamboo', 'cipher', 'donkey', 'emerald',
+    'fountain', 'giggle', 'hatchet', 'island', 'jellyfish', 'kangaroo', 'lantern', 'midnight', 'nectar', 'opera',
+    'puzzle', 'quasar', 'radio', 'sapphire', 'treasure', 'undertow', 'vortex', 'whistle', 'xylophone', 'yolk',
+    'zodiac', 'alchemy', 'banquet', 'cylinder', 'drizzle', 'elixir', 'fracture', 'goblet', 'hovercraft', 'icicle',
+    'jigsaw', 'kiosk', 'lava', 'monsoon', 'nucleus', 'odyssey', 'parachute', 'quicksand', 'rubble', 'satellite',
+    'telescope', 'underpass', 'volcano', 'wheelbarrow', 'xylophone', 'yawn', 'zeppelin', 'biscuit', 'coral', 'dungeon',
+    'eclipse', 'feather', 'glacier', 'harvest', 'illusion', 'journey', 'kaleidoscope', 'labyrinth', 'maple', 'nebula',
+    'oxygen', 'pendulum', 'quill', 'revolver', 'satchel', 'tundra', 'umbrella', 'vaccine', 'whirlwind', 'xenophobia',
+    'yacht', 'zipper', 'backpack', 'carrot', 'dolphin', 'elbow', 'ferret', 'gazelle', 'hammock', 'ink', 'jungle',
+    'knight', 'lighthouse', 'mantis', 'net', 'orchestra', 'pillow', 'quiz', 'rope', 'scorpion', 'tarantula',
+    'ukulele', 'vampire', 'waterfall', 'xylophone', 'yo-yo', 'zeppelin', 'barometer', 'copper', 'dart', 'engine',
+    'fan', 'giraffe', 'hat', 'insect', 'jacket', 'key', 'lemonade', 'microphone', 'necklace', 'oyster',
+    'painting', 'quicksilver', 'raven', 'sailboat', 'toothbrush', 'upside', 'vine', 'wax', 'xylitol', 'yellow',
+    'zipper', 'anchor', 'brick', 'cloud', 'disk', 'envelope', 'fence', 'globe', 'hatchet', 'interview',
+    'jelly', 'kitchen', 'ladder', 'mask', 'night', 'orbit', 'plank', 'queue', 'raft', 'straw',
+    'train', 'utensil', 'vase', 'water', 'xylophone', 'yoga', 'zebra', 'badge', 'calendar', 'door',
+    'eraser', 'fossil', 'gear', 'hat', 'iceberg', 'jeep', 'kite', 'leaf', 'moon', 'nail',
+    'ocean', 'panther', 'quicksilver', 'ring', 'soap', 'tree', 'umbrella', 'vacuum', 'window', 'xylophone',
+    'yellow', 'zipper', 'axe', 'book', 'clock', 'drum', 'earring', 'feather', 'gate', 'hill',
+    'ink', 'jar', 'knife', 'lamp', 'moonlight', 'net', 'owl', 'pencil', 'quicksilver', 'ribbon',
+    'staircase', 'tulip', 'umbrella', 'vase', 'whale', 'xylophone', 'yarn', 'zeppelin', 'beard', 'cup',
+    'diamond', 'engine', 'feather', 'guitar', 'helmet', 'island', 'jack', 'keyhole', 'leopard', 'moon',
+    'nugget', 'owl', 'piano', 'quill', 'rose', 'spoon', 'throne', 'umbrella', 'vial', 'whistle',
+    'xenon', 'yo-yo', 'zebra', 'amplifier', 'balloon', 'camera', 'drill', 'eagle', 'flame', 'gravel',
+    'hippo', 'iguana', 'jelly', 'kite', 'log', 'mountain', 'nugget', 'opera', 'paint', 'quiver',
+    'rope', 'scarf', 'table', 'umbrella', 'vault', 'whisker', 'x-ray', 'yeti', 'zeppelin', 'atom',
+    'bicycle', 'crate', 'dollar', 'engineer', 'flag', 'grape', 'hammer', 'ice', 'jewel', 'kitten',
+    'ladder', 'mask', 'needle', 'oven', 'paper', 'quilt', 'ruler', 'ship', 'telephone', 'unicorn',
+    'violet', 'wheel', 'x-ray', 'yarn', 'zucchini', 'arrow', 'ball', 'cupboard', 'dust', 'elbow',
+    'fist', 'gate', 'hat', 'ink', 'jacket', 'key', 'lamp', 'milk', 'napkin', 'oven',
+    'potato', 'quiz', 'ring', 'sock', 'tower', 'umbrella', 'vase', 'whisk', 'xylophone', 'yellow',
+    'zebra', 'basket', 'chalk', 'door', 'envelope', 'feather', 'gold', 'helmet', 'ice', 'jacket',
+    'knife', 'leaf', 'mountain', 'napkin', 'oil', 'paper', 'quartz', 'ruler', 'spoon', 'table',
+    'umbrella', 'vase', 'wheel', 'xylophone', 'yo-yo', 'zipper', 'ant', 'boat', 'cake', 'dolphin',
+    'eagle', 'feather', 'glove', 'hat', 'ice', 'jar', 'kite', 'leaf', 'mirror', 'necklace',
+    'orange', 'plate', 'quiz', 'rope', 'sock', 'tower', 'umbrella', 'violin', 'whistle', 'x-ray',
+    'yellow', 'zebra'
+
+];
+
+function generateRandomSentence() {
+    let sentence = '';
+    for (let i = 0; i < 5; i++) {
+        const randomIndex = Math.floor(Math.random() * randomWords.length);
+        sentence += randomWords[randomIndex] + ' ';
+    }
+    return sentence.trim();
+}
+
+function setPromptText() {
+    promptTextElement.textContent = generateRandomSentence();
+}
+
+startButton.addEventListener('click', startTest);
+
+inputArea.addEventListener('input', () => {
+    if (!isPlaying) return;
+
+    const userInput = inputArea.value;
+    const promptText = promptTextElement.innerText;
+    
+    checkTypingAccuracy(userInput, promptText);
+
+    if (userInput === promptText) {
+        clearInterval(interval);
+        calculateWPM();
+    }
+});
+
+toggleButton.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+});
+
+function startTest() {
+    clearInterval(interval);
+    timer = 0;
+    timerDisplay.textContent = timer;
+    inputArea.value = '';
+    inputArea.disabled = false;
+    isPlaying = true;
+    inputArea.focus();
+    setPromptText();
+    interval = setInterval(updateTimer, 1000);
+}
+
+function updateTimer() {
+    timer++;
+    timerDisplay.textContent = timer;
+}
+
+function calculateWPM() {
+    const words = promptTextElement.innerText.split(' ').length;
+    const minutes = timer / 60;
+    const wpm = Math.round(words / minutes);
+    wpmDisplay.textContent = wpm;
+    isPlaying = false;
+}
+
+function checkTypingAccuracy(userInput, promptText) {
+    let displayText = '';
+    
+    for (let i = 0; i < promptText.length; i++) {
+        if (i < userInput.length) {
+            if (userInput[i] === promptText[i]) {
+                displayText += `<span style="color: green;">${promptText[i]}</span>`;
+            } else {
+                displayText += `<span style="color: red;">${promptText[i]}</span>`;
+            }
+        } else {
+            displayText += promptText[i];
+        }
+    }
+
+    promptTextElement.innerHTML = displayText;
+}
+
+document.addEventListener('keydown', (e) => {
+    if (e.altKey && e.key === 'Tab') {
+        quickRestart();
+    }
+});
+
+function quickRestart() {
+    clearInterval(interval);
+    timer = 0;
+    timerDisplay.textContent = timer;
+    inputArea.value = '';
+    isPlaying = true;
+    inputArea.focus();
+    setPromptText();
+    interval = setInterval(updateTimer, 1000);
+}
+
+// Set Default Theme based on System Preferences
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.body.classList.add('dark-mode');
+    themeToggle.textContent = 'Switch to Light Mode';
+  } else {
+    document.body.classList.add('light-mode');
+    themeToggle.textContent = 'Switch to Dark Mode';
+  }
