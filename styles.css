@@ -1,11 +1,9 @@
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  overflow-x: hidden;
   cursor: none;
   background: #f0f2f5;
   color: #333;
-  line-height: 1.6;
   transition: background 0.5s, color 0.5s;
 }
 
@@ -25,191 +23,64 @@ body.dark-mode {
   transform: translate(-50%, -50%);
 }
 
-.header {
-  position: fixed;
-  width: 100%;
-  top: 0;
-  background: rgba(0, 0, 0, 0.7);
-  padding: 1rem 2rem;
-  z-index: 1000;
-  transition: background 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-body.light-mode .header {
-  background: rgba(255, 255, 255, 0.8);
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #fff;
-}
-
-body.light-mode .navbar {
-  color: #333;
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 2rem;
-}
-
-.nav-links li a {
-  text-decoration: none;
-  color: #fff;
-  font-weight: 700;
-  transition: color 0.3s ease;
-}
-
-body.light-mode .nav-links li a {
-  color: #333;
-}
-
-.nav-links li a:hover {
-  color: #00bcd4;
-  text-shadow: 0 0 10px #00bcd4;
-}
-
-.hero-section {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+/* Hero Section */
+.bg-gradient {
   background: linear-gradient(to bottom right, #6a11cb, #2575fc);
-  color: #fff;
-  animation: fadeIn 2s ease-in-out;
-  text-align: center;
-  padding: 0 2rem;
 }
 
-body.light-mode .hero-section {
+body.light-mode .bg-gradient {
   background: linear-gradient(to bottom right, #1e90ff, #87cefa);
 }
 
-.hero-title {
-  font-size: 4rem;
-  margin: 0;
-  animation: slideIn 1.5s ease-out;
+.hero-section h1 {
   text-transform: uppercase;
   letter-spacing: 2px;
 }
 
-.hero-subtitle {
-  font-size: 1.5rem;
-  margin-top: 1rem;
-  opacity: 0.9;
-}
-
-.hero-btn {
-  margin-top: 2rem;
-  padding: 1rem 2.5rem;
-  background-color: #00bcd4;
-  color: #fff;
-  border: none;
-  border-radius: 50px;
-  text-decoration: none;
-  transition: background 0.3s, transform 0.3s;
-  font-weight: bold;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-}
-
-body.light-mode .hero-btn {
-  background-color: #1e90ff;
-}
-
-.hero-btn:hover {
-  background: #008c9e;
-  transform: translateY(-5px);
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
-}
-
-.about-section, .projects-section, .contact-section {
-  padding: 6rem 2rem;
-  background: #ffffff;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 3rem auto;
-  max-width: 800px;
-  transition: background 0.5s;
-}
-
-body.dark-mode .about-section,
-body.dark-mode .projects-section,
-body.dark-mode .contact-section {
-  background: #2b2b3a;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-}
-
-h2 {
-  font-size: 2.5rem;
-  text-align: center;
-  color: #6a11cb;
-  margin-bottom: 2rem;
-  position: relative;
-}
-
-body.light-mode h2 {
-  color: #1e90ff;
-}
-
-h2::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: -10px;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 4px;
-  background: #00bcd4;
-  border-radius: 2px;
-}
-
-body.light-mode h2::after {
-  background: #1e90ff;
-}
-
-.project-card {
-  background: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(15px);
-  padding: 2.5rem;
-  margin-bottom: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-body.dark-mode .project-card {
-  background: rgba(43, 43, 58, 0.6);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-}
-
-.project-card:hover {
+/* Card Hover Effect */
+.card:hover {
   transform: translateY(-10px);
+  transition: transform 0.3s;
   box-shadow: 0 16px 30px rgba(0, 0, 0, 0.2);
 }
 
-.theme-toggle {
-  position: fixed;
-  top: 1rem;
-  right: 2rem;
-  padding: 0.5rem 1rem;
-  background-color: #00bcd4;
-  color: #fff;
+body.dark-mode .card {
+  background: #2b2b3a;
+  color: #f0f2f5;
+}
+
+body.light-mode .card {
+  background: #ffffff;
+  color: #333;
+}
+
+.navbar-nav .nav-link {
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #00bcd4;
+  text-shadow: 0 0 10px #00bcd4;
+}
+
+.navbar-nav .dropdown-menu {
+  background-color: #444;
+}
+
+body.light-mode .navbar-nav .dropdown-menu {
+  background-color: #f0f2f5;
+}
+
+#theme-toggle {
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s;
-  z-index: 1001;
+  padding: 0.5rem 1rem;
 }
 
-body.light-mode .theme-toggle {
-  background-color: #1e90ff;
-}
-
-.theme-toggle:hover {
+#theme-toggle:hover {
   background-color: #008c9e;
+}
+
+body.light-mode #theme-toggle {
+  background-color: #1e90ff;
 }

@@ -1,0 +1,99 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    transition: background-color 0.5s ease;
+}
+
+/* Light and Dark Mode Colors */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --cell-bg-color: #eaeaea;
+    --cell-border-color: #000000;
+}
+
+body.dark {
+    --bg-color: #333333;
+    --text-color: #ffffff;
+    --cell-bg-color: #555555;
+    --cell-border-color: #ffffff;
+}
+
+/* Centering the Container */
+.container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Board Styling */
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px;
+    margin-bottom: 20px;
+    align-self: center; /* Center the board */
+}
+
+/* Cell Styling */
+.cell {
+    background-color: var(--cell-bg-color);
+    border: 2px solid var(--cell-border-color);
+    font-size: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.cell:hover {
+    background-color: #dcdcdc;
+    transform: scale(1.1);
+}
+
+/* Button Styling */
+.restart, .toggle-theme {
+    margin: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: var(--cell-bg-color);
+    border: none;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+    border-radius: 20px; /* Rounded corners */
+}
+
+.restart:hover, .toggle-theme:hover {
+    background-color: #cccccc;
+}
+
+/* Animation for Clicked Cell */
+.cell.clicked {
+    animation: clickAnimation 0.2s ease;
+}
+
+@keyframes clickAnimation {
+    0% {
+        transform: scale(1);
+        background-color: #f0f0f0;
+    }
+    50% {
+        transform: scale(1.2);
+        background-color: #bdbdbd;
+    }
+    100% {
+        transform: scale(1);
+        background-color: #f0f0f0;
+    }
+}

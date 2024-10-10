@@ -1,0 +1,168 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0 15px; /* Add padding to avoid elements touching the screen edges */
+    transition: background 0.5s ease;
+    box-sizing: border-box;
+}
+
+body.light-mode {
+    background: #ffffff;
+    color: #333;
+}
+
+body.dark-mode {
+    background: #333;
+    color: #ffdd57;
+}
+
+.container {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    transition: background 0.5s ease;
+    box-sizing: border-box;
+}
+
+body.dark-mode .container {
+    background: #444;
+}
+
+.title {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.test-area {
+    position: relative;
+}
+
+.prompt-text {
+    background: #f0f0f0;
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    transition: background 0.5s ease;
+    word-wrap: break-word;
+}
+
+body.dark-mode .prompt-text {
+    background: #555;
+    color: #ffdd57;
+}
+
+.input-area {
+    width: 100%;
+    height: 100px;
+    padding: 15px;
+    font-size: 1.1em;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    transition: border 0.3s ease;
+    resize: none; /* Prevents resizing of the text area */
+}
+
+.input-area:focus {
+    border: 2px solid #4facfe;
+    outline: none;
+}
+
+.stats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.start-button, .toggle-button {
+    background: #4facfe;
+    border: none;
+    border-radius: 25px;
+    color: #fff;
+    padding: 15px 30px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.start-button:hover, .toggle-button:hover {
+    background: #3a92d9;
+}
+
+body.dark-mode .start-button, body.dark-mode .toggle-button {
+    background: #ffdd57;
+    color: #333;
+}
+
+.results {
+    margin-top: 15px;
+    font-size: 1.2em;
+}
+
+/* Responsive Design for Smaller Devices */
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 30px;
+        max-width: 90%; /* Reduce container width on smaller screens */
+    }
+
+    .title {
+        font-size: 2em; /* Adjust font size for the title */
+    }
+
+    .prompt-text {
+        font-size: 1.1em; /* Slightly smaller prompt text on mobile */
+    }
+
+    .input-area {
+        height: 80px; /* Reduce the height of the input area */
+        font-size: 1em; /* Adjust the font size */
+    }
+
+    .start-button, .toggle-button {
+        padding: 12px 20px; /* Smaller button padding on mobile */
+        font-size: 0.9em; /* Reduce font size */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .container {
+        padding: 20px;
+        max-width: 100%; /* Full width on very small screens */
+    }
+
+    .title {
+        font-size: 1.8em; /* Further adjust font size for the title */
+    }
+
+    .prompt-text {
+        font-size: 1em; /* Smaller prompt text */
+        padding: 10px; /* Adjust padding */
+    }
+
+    .input-area {
+        height: 70px; /* Further reduce the height of the input area */
+        font-size: 0.9em; /* Adjust font size for readability on smaller screens */
+    }
+
+    .start-button, .toggle-button {
+        padding: 10px 15px; /* Reduce button padding */
+        font-size: 0.8em; /* Reduce button font size */
+    }
+
+    .stats {
+        font-size: 1em; /* Adjust font size for the stats display */
+    }
+}
