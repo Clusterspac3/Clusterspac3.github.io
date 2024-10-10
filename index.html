@@ -11,6 +11,7 @@
 </head>
 <body>
   <div id="cursor"></div>
+  <button id="theme-toggle" class="theme-toggle">Switch Mode</button>
 
   <header class="header">
     <nav class="navbar">
@@ -20,15 +21,15 @@
         <li><a href="#about">About</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li><a href="#game">Text Game</a></li>
       </ul>
     </nav>
   </header>
 
   <section id="home" class="hero-section">
-      <h1 class="hero-title">Welcome to My Portfolio</h1>
-      <p class="hero-subtitle">Creative Designer & Developer</p>
-      <a href="#projects" class="hero-btn">View My Work</a>
-      <button id="theme-toggle" class="theme-toggle">Switch Mode</button>
+    <h1 class="hero-title">Welcome to My Portfolio</h1>
+    <p class="hero-subtitle">Creative Designer & Developer</p>
+    <a href="#projects" class="hero-btn">View My Work</a>
   </section>
 
   <section id="about" class="about-section">
@@ -53,6 +54,103 @@
     <p>Let's work together! Feel free to reach out via email or social media.</p>
   </section>
 
-  <script src="script.js"></script>
+  <section id="game" class="game-section">
+    <h2>Text Based Game</h2>
+    <div id="game-container">
+      <p id="game-text">Welcome to the adventure! You find yourself in a dark forest. Do you go left or right?</p>
+      <button onclick="makeChoice('left')">Left</button>
+      <button onclick="makeChoice('right')">Right</button>
+    </div>
+  </section>
+
+  <script>
+    const cursor = document.querySelector('#cursor');
+    const themeToggle = document.querySelector('#theme-toggle');
+
+    // Cursor Movement
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.pageX + 'px';
+      cursor.style.top = e.pageY + 'px';
+    });
+
+    // Hover Effects for Links
+    const navLinks = document.querySelectorAll('.nav-links li a');
+    navLinks.forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        cursor.style.transform = 'scale(1.5)';
+        cursor.style.backgroundColor = '#00bcd4';
+      });
+      link.addEventListener('mouseleave', () => {
+        cursor.style.transform = 'scale(1)';
+        cursor.style.backgroundColor = 'transparent';
+      });
+    });
+
+    // Scroll Animations
+    const sections = document.querySelectorAll('section');
+    window.addEventListener('scroll', () => {
+      sections.forEach(section => {
+        const sectionTop = section.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        if (sectionTop < windowHeight - 100) {
+          section.classList.add('visible');
+        }
+      });
+    });
+
+    // Smooth Scroll for Anchor Links
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    anchorLinks.forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        document.querySelector(targetId).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Theme Toggle
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      document.body.classList.toggle('light-mode');
+      if (document.body.classList.contains('dark-mode')) {
+        themeToggle.textContent = 'Switch to Light Mode';
+      } else {
+        themeToggle.textContent = 'Switch to Dark Mode';
+      }
+    });
+
+    // Set Default Theme
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.body.classList.add('dark-mode');
+      themeToggle.textContent = 'Switch to Light Mode';
+    } else {
+      document.body.classList.add('light-mode');
+      themeToggle.textContent = 'Switch to Dark Mode';
+    }
+
+    // Text Based Game Logic
+    function makeChoice(choice) {
+      const gameText = document.getElementById('game-text');
+      if (choice === 'left') {
+        gameText.textContent = 'You took the left path and encounter a friendly deer. Do you follow it or stay?';
+        document.getElementById('game-container').innerHTML += '<button onclick="makeChoice(\'follow\')">Follow</button>';
+        document.getElementById('game-container').innerHTML += '<button onclick="makeChoice(\'stay\')">Stay</button>';
+      } else if (choice === 'right') {
+        gameText.textContent = 'You took the right path and found a mysterious cave. Do you enter or walk away?';
+        document.getElementById('game-container').innerHTML += '<button onclick="makeChoice(\'enter\')">Enter</button>';
+        document.getElementById('game-container').innerHTML += '<button onclick="makeChoice(\'walk\')">Walk Away</button>';
+      } else if (choice === 'follow') {
+        gameText.textContent = 'The deer led you to a beautiful clearing. You found a hidden treasure. You win!';
+      } else if (choice === 'stay') {
+        gameText.textContent = 'You stayed where you were and it started to rain. You decide to head back home. The adventure ends.';
+      } else if (choice === 'enter') {
+        gameText.textContent = 'You entered the cave and discovered an underground lake. You found a boat and sailed away to explore. The adventure continues!';
+      } else if (choice === 'walk') {
+        gameText.textContent = 'You walked away from the cave and returned safely. Maybe next time you will explore further.';
+      }
+    }
+  </script>
 </body>
 </html>
