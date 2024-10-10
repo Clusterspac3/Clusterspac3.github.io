@@ -1,0 +1,103 @@
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+#cursor {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  pointer-events: none;
+  transition: all 0.1s ease;
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 1rem;
+  z-index: 1000;
+  transition: background 0.3s ease;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #fff;
+  transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+  color: #00bcd4;
+}
+
+.hero-section {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom right, #6a11cb, #2575fc);
+  color: #fff;
+  animation: fadeIn 2s ease-in-out;
+}
+
+.hero-title {
+  font-size: 3rem;
+  margin: 0;
+  animation: slideIn 1.5s ease-out;
+}
+
+.hero-btn {
+  margin-top: 1.5rem;
+  padding: 1rem 2rem;
+  background-color: #00bcd4;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.hero-btn:hover {
+  background: #008c9e;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(50%); }
+  to { transform: translateY(0); }
+}
+
+.about-section, .projects-section, .contact-section {
+  padding: 5rem 2rem;
+}
+
+.project-card {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 15px;
+}
