@@ -3,26 +3,31 @@ body {
   font-family: 'Roboto', sans-serif;
   overflow-x: hidden;
   cursor: none;
+  background: #f0f2f5;
+  color: #333;
+  line-height: 1.6;
 }
 
 #cursor {
   position: absolute;
   width: 20px;
   height: 20px;
-  border: 2px solid #000;
+  border: 2px solid #6a11cb;
   border-radius: 50%;
   pointer-events: none;
-  transition: all 0.1s ease;
+  transition: transform 0.15s ease;
+  transform: translate(-50%, -50%);
 }
 
 .header {
   position: fixed;
   width: 100%;
   top: 0;
-  background: rgba(0, 0, 0, 0.6);
-  padding: 1rem;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1rem 2rem;
   z-index: 1000;
   transition: background 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .navbar {
@@ -41,11 +46,13 @@ body {
 .nav-links li a {
   text-decoration: none;
   color: #fff;
+  font-weight: 700;
   transition: color 0.3s ease;
 }
 
 .nav-links li a:hover {
   color: #00bcd4;
+  text-shadow: 0 0 10px #00bcd4;
 }
 
 .hero-section {
@@ -57,27 +64,41 @@ body {
   background: linear-gradient(to bottom right, #6a11cb, #2575fc);
   color: #fff;
   animation: fadeIn 2s ease-in-out;
+  text-align: center;
+  padding: 0 2rem;
 }
 
 .hero-title {
-  font-size: 3rem;
+  font-size: 4rem;
   margin: 0;
   animation: slideIn 1.5s ease-out;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  opacity: 0.9;
 }
 
 .hero-btn {
-  margin-top: 1.5rem;
-  padding: 1rem 2rem;
+  margin-top: 2rem;
+  padding: 1rem 2.5rem;
   background-color: #00bcd4;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 50px;
   text-decoration: none;
-  transition: background 0.3s;
+  transition: background 0.3s, transform 0.3s;
+  font-weight: bold;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
 }
 
 .hero-btn:hover {
   background: #008c9e;
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
 }
 
 @keyframes fadeIn {
@@ -91,13 +112,45 @@ body {
 }
 
 .about-section, .projects-section, .contact-section {
-  padding: 5rem 2rem;
+  padding: 6rem 2rem;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 3rem auto;
+  max-width: 800px;
+}
+
+h2 {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #6a11cb;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: #00bcd4;
+  border-radius: 2px;
 }
 
 .project-card {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  padding: 2rem;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(15px);
+  padding: 2.5rem;
   margin-bottom: 2rem;
   border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.2);
 }
