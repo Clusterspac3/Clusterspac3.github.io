@@ -50,23 +50,20 @@ function init() {
     }, undefined, function (error) {
         console.error('An error occurred while loading the Mercedes model:', error);
     });
-
-    // Load FBX Model 2
-    fbxLoader.load('porsche.fbx', function (fbx) {
-        fbx.position.set(0, 0, 0); // Position of model 2
-        scene.add(fbx);
+    gltfLoader.load('porsche.glb', function (gltf) {
+        const model = gltf.scene;
+        model.position.set(-2, 0, 0); // Position of model 1
+        scene.add(model);
     }, undefined, function (error) {
-        console.error('An error occurred while loading the Porsche model:', error);
+        console.error('An error occurred while loading the Mercedes model:', error);
     });
-
-    // Load FBX Model 3
-    fbxLoader.load('pagani.fbx', function (fbx) {
-        fbx.position.set(3, 0, 0); // Position of model 3
-        scene.add(fbx);
+    gltfLoader.load('pagani.glb', function (gltf) {
+        const model = gltf.scene;
+        model.position.set(-1, 0, 0); // Position of model 1
+        scene.add(model);
     }, undefined, function (error) {
-        console.error('An error occurred while loading the Pagani model:', error);
+        console.error('An error occurred while loading the Mercedes model:', error);
     });
-
     // Handle window resize
     window.addEventListener('resize', onWindowResize);
 }
