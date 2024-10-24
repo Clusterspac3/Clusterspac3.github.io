@@ -6,12 +6,18 @@ animate();
 
 function init() {
     const canvasContainer = document.getElementById('showroom-canvas');
-
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true; // Smooth rotation    
     // Scene
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0xffffff);
+    const floorGeometry = new THREE.PlaneGeometry(10, 10);
+    const floorMaterial = new THREE.MeshStandardMaterial({ color: 0x999999 });
+    const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+    floor.rotation.x = - Math.PI / 2;
+    floor.position.y = -1;
+    scene.add(floor);
 
-    // Camera
     camera = new THREE.PerspectiveCamera(50, canvasContainer.clientWidth / canvasContainer.clientHeight, 0.1, 1000);
     camera.position.set(0, 2, 10);
 
