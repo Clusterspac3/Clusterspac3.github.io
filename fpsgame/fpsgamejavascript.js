@@ -1,4 +1,5 @@
-let scene, camera, renderer, score = 0, enemies = [], projectiles = [], playerSpeed = 0.2, enemySpeed = 0.02;
+let scene, camera, renderer, score = 0, health = 100, lives = 3, obstacles = [], enemies = [], projectiles = [];
+let playerSpeed = 0.1, enemySpeed = 0.02, mapLimit = 20;
 let keys = { w: false, a: false, s: false, d: false, space: false };
 let playerVelocity = new THREE.Vector3();
 
@@ -27,8 +28,9 @@ function init() {
   // Window resize handling
   window.addEventListener('resize', onWindowResize, false);
 
-  // Spawn enemies initially
+  // Spawn initial enemies and obstacles
   spawnEnemy();
+  createObstacles();
 }
 
 function onKeyDown(event) {
@@ -57,12 +59,26 @@ function onWindowResize() {
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
+function createObstacles() {
+  const obstacleGeometry = new THREE.BoxGeometry(2, 2, 2);
+  const obstacleMaterial = new THREE.MeshBasicMaterial({ color: 0x444444 });
+
+  for (let i = 0; i < 10; i++) {
+    const obstacle = new THREE.Mesh(obstacleGeometry, obstacleMaterial);
+    obstacle.position.x = Math.random() * mapLimit * 2 - mapLimit;
+    obstacle.position.y = 1;
+    obstacle.position.z = Math.random() * mapLimit * -2;
+    obstacles.push(obstacle);
+    scene.add(obstacle);
+  }
+}
+
 function spawnEnemy() {
   const enemyGeometry = new THREE.BoxGeometry(1, 1, 1);
   const enemyMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
   const enemy = new THREE.Mesh(enemyGeometry, enemyMaterial);
 
-  enemy.position.x = Math.random() * 20 - 10;
+  enemy.position.x = Math.random() * mapLimit * 2 - mapLimit;
   enemy.position.y = 1;
   enemy.position.z = Math.random() * -30 - 10;
 
@@ -116,19 +132,53 @@ function updateMovement() {
   if (keys.a) playerVelocity.x -= playerSpeed;
   if (keys.d) playerVelocity.x += playerSpeed;
 
-  camera.position.add(playerVelocity);
+  const nextPosition = camera.position.clone().add(playerVelocity);
+
+  // Check if the player is within the map limits
+  if (Math.abs(nextPosition.x) < mapLimit && Math.abs(nextPosition.z) < mapLimit) {
+    // Check for obstacle collisions
+    let isBlocked = false;
+    for (const obstacle of obstacles) {
+      if (nextPosition.distanceTo(obstacle.position) < 2) {
+        isBlocked = true;
+        break;
+      }
+    }
+    if (!isBlocked) {
+      camera.position.add(playerVelocity);
+    }
+  }
 }
 
 function updateEnemies() {
   enemies.forEach(enemy => {
     enemy.position.z += enemySpeed;
 
-    if (enemy.position.z > camera.position.z + 5) {
-      // Respawn enemy behind the player if they move past the player
+    if (enemy.position.z > camera.position.z) {
+      health -= 10;
+      if (health <= 0) {
+        health = 100;
+        lives -= 1;
+        document.getElementById("lives").textContent = "Lives: " + lives;
+        if (lives <= 0) {
+          alert('Game Over! Final Score: ' + score);
+          resetGame();
+        }
+      }
+      document.getElementById("health").textContent = "Health: " + health;
       enemy.position.z = Math.random() * -30 - 10;
-      enemy.position.x = Math.random() * 20 - 10;
+      enemy.position.x = Math.random() * mapLimit * 2 - mapLimit;
     }
   });
+}
+
+function resetGame() {
+  score = 0;
+  health = 100;
+  lives = 3;
+  document.getElementById("score").textContent = "Score: 0";
+  document.getElementById("health").textContent = "Health: 100";
+  document.getElementById("lives").textContent = "Lives: 3";
 }
 
 function animate() {
