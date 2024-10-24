@@ -45,26 +45,25 @@ function init() {
     // Load GLTF Model 1
     gltfLoader.load('mercedes.glb', function (gltf) {
         const model = gltf.scene;
-        model.position.set(-3, 0, 0); // Position of model 1
+        model.position.set(-1, 0, 0); // Position of model 1
         scene.add(model);
     }, undefined, function (error) {
         console.error('An error occurred while loading the Mercedes model:', error);
     });
     gltfLoader.load('porsche.glb', function (gltf) {
         const model = gltf.scene;
-        model.position.set(-2, 0, 0); // Position of model 1
+        model.position.set(-1,3, 0);
         scene.add(model);
     }, undefined, function (error) {
         console.error('An error occurred while loading the Mercedes model:', error);
     });
     gltfLoader.load('pagani.glb', function (gltf) {
         const model = gltf.scene;
-        model.position.set(-1, 0, 0); // Position of model 1
+        model.position.set(-1, 0, 3);
         scene.add(model);
     }, undefined, function (error) {
         console.error('An error occurred while loading the Mercedes model:', error);
     });
-    // Handle window resize
     window.addEventListener('resize', onWindowResize);
 }
 
@@ -77,6 +76,6 @@ function onWindowResize() {
 
 function animate() {
     requestAnimationFrame(animate);
-    controls.update(); // Required for OrbitControls to function properly
+    controls.update(); 
     renderer.render(scene, camera);
 }
