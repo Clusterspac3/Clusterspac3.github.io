@@ -1,0 +1,14 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#uploadedImage {
+    max-width: 300px;
+    margin: 20px;
+}
+
+#predictionList {
+    list-style: none;
+    padding: 0;
+}
